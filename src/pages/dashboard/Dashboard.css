@@ -1,0 +1,5 @@
+.dashLink a.active{
+    background-color: rgb(255, 47, 107);
+    color: white;
+    border-radius: 5px;
+}

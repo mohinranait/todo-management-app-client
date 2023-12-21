@@ -8,4 +8,21 @@
     .link-menu{
         @apply block w-full font-medium text-text-color hover:text-primary transition-all duration-100
     }
+    .mobile-left{
+        @apply  w-[90vw]  sm:w-[310px] z-50  top-0 fixed bottom-0 bg-white shadow
+    }
+    .mobile-logo-wrap { @apply  border-b flex px-5 py-2 items-center justify-between border-gray-200  }
+
+    .mobilemenu{
+        @apply px-5 py-2 inline-block text-text-color hover:bg-primary w-full hover:text-white transition-all duration-300
+    }
+    .mobilemenu-icon{
+        @apply py-2  inline-block text-gray-700 hover:text-gray-900
+    }
+    .mobilembttom{
+        @apply fixed bottom-0 border-t border-slate-100 z-[100] left-0 w-full py-1 bg-white
+    }
+    .mobile-left{
+        @apply  w-[90vw]  sm:w-[310px] z-50  top-0 fixed bottom-0 bg-white shadow
+    }
 }

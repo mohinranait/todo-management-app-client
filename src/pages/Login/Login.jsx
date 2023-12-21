@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import SocialLogin from "../../components/SocialLogin";
 
 
 const Login = () => {
@@ -67,7 +68,7 @@ const Login = () => {
                                     </form>
                                 </div>
                                 <p className='text-center text-gray-600'>Create a new account ? <Link to={'/register'} className='text-primary'>Register</Link> </p>
-                                
+                                <SocialLogin />
                             </div>
                     
                     </div>

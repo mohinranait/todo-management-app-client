@@ -7,6 +7,8 @@ import Dashboard from '../pages/dashboard/Dashboard';
 import TodoManagement from '../pages/dashboard/TodoManagement';
 import NewTask from '../pages/dashboard/NewTask';
 import PrivateRoutes from './PrivateRoutes';
+import Profile from '../pages/dashboard/Profile';
+import EditTask from '../pages/dashboard/EditTask';
 
 const myRoutes = createBrowserRouter([
     {
@@ -28,6 +30,14 @@ const myRoutes = createBrowserRouter([
                     {
                         path: 'new-task',
                         element : <NewTask />
+                    },
+                    {
+                        path: 'edit-task/:id',
+                        element : <EditTask />,
+                    },
+                    {
+                        path: 'profile',
+                        element : <Profile />
                     },
                 ]
             },

@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import SocialLogin from "../../components/SocialLogin";
 
 
 const Register = () => {
@@ -90,8 +91,8 @@ const Register = () => {
             message: "Email charecter length must bee 5 charecter"
         },
         maxLength: {
-            value : 20,
-            message : "Email charecter limit is 20"
+            value : 100,
+            message : "Email charecter limit is 100"
         },
         pattern: {
             value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
@@ -135,7 +136,7 @@ const Register = () => {
                                     </form>
                                 </div>
                                 <p className='text-center text-gray-600'>Already have a  account ? <Link to={'/login'} className='text-primary'>Sign In</Link> </p>
-                                
+                                <SocialLogin />
                             </div>
                     
                     </div>

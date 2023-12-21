@@ -1,8 +1,10 @@
 import { createContext, useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import auth from "../services/firebase";
 
+const googleProvide = new GoogleAuthProvider()
+const githubProvider = new GithubAuthProvider();
 
 
 export const AuthContext = createContext({});
@@ -22,6 +24,18 @@ const AuthProvider = ({children}) => {
     const loginUser = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
+    }
+
+    // Google login
+    const googleLogin = () => {
+        setLoading(true)
+        return signInWithPopup(auth, googleProvide)
+    }
+
+    // Github login
+    const githubLogin = () => {
+        setLoading(true)
+        return signInWithPopup(auth, githubProvider)
     }
 
     // LogOut user
@@ -62,6 +76,7 @@ const AuthProvider = ({children}) => {
                 console.log('Logout');
             }
             setLoading(false)
+            console.log('slow falas');
           
         })
         return () => {onSubscribe()}
@@ -73,7 +88,9 @@ const AuthProvider = ({children}) => {
         loginUser,
         userProfileUpdate,
         loading,
-        logOut
+        logOut,
+        googleLogin,
+        githubLogin
     }
 
 
