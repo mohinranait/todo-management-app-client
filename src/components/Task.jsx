@@ -5,11 +5,10 @@ import { MdOutlineDataSaverOff, MdOutlineRemoveRedEye, MdOutlineTaskAlt } from "
 import { FcParallelTasks } from "react-icons/fc";
 import { useState } from "react";
 import Modal from "./modal/Modal";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const Task = ({todo,handleDeleteTask}) => {
-    const {_id} = todo;
     const [ isOpenModal, setIsOpenModal] = useState(false);
     const navigate = useNavigate();
     console.log(todo?._id);
@@ -20,8 +19,6 @@ const Task = ({todo,handleDeleteTask}) => {
     const openModal = () => {
         setIsOpenModal(true)
     }
-
-
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: 'todo',
@@ -36,11 +33,8 @@ const Task = ({todo,handleDeleteTask}) => {
         console.log(id);
         navigate(`/dashboard/edit-task/${id}`)
     }
-   
-
 
     return (
-  
         <>
             <li ref={drag}  className={`py-3 px-3 shadow cursor-grab ${isDragging ? 'opacity-25 bg-gray-300' : 'opacity-100'}  border-l-2 ${todo?.status == 'todo' ? 'border-pink-600' : todo?.status == 'ongoing' ? 'border-purple-600' : 'border-green-600'} `}>
                 <div className="flex gap-3">
@@ -50,7 +44,7 @@ const Task = ({todo,handleDeleteTask}) => {
                     <div className="w-full">
                         <p className="text-lg mb-2 font-semibold text-gray-800">{todo.title}</p>
                         <p className="text-xs mb-2  text-gray-400 flex gap-4  items-center"><span>Priority: {todo.priority}</span><span>{todo?.deadlines}</span></p>
-                        <p className="text-gray-500 text-sm">{todo.descriptions}</p>
+                        <p className="text-gray-500 text-sm">{todo.descriptions.slice(0,130)}</p>
                     </div>
                 
                 </div>

@@ -29,7 +29,7 @@ const Header = ({isToggle, setIsToggle}) => {
                             {
                                 user?.email ?  <>
                                     <li><NavLink to={'/dashboard/manage-task'} className={`link-menu`}>Dashboard</NavLink></li>
-                                    <li><button className={`link-menu`}>Sign Out</button></li>
+                                    <li><button onClick={handleLogout} className={`link-menu`}>Sign Out</button></li>
                                 </> : 
                                 <>
                                     <li><NavLink to={'/login'} className={`link-menu`}>Login</NavLink></li>

@@ -7,10 +7,11 @@ const PrivateRoutes = ({children}) => {
     const {user,loading} = useAuth();
     const location = useLocation();
 
-
     if( loading ){
         return <div>
-            <p className='text-center pt-16 text-red-600 font-bold  '>Loading...</p>
+            <div className='text-center h-[calc(100vh-200px)] flex items-center justify-center font-bold  '>
+                <span className='text-5xl font-bold text-pink-600'>Loading...</span>
+            </div>
         </div>
     }
 
