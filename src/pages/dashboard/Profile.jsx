@@ -1,11 +1,12 @@
 import { RiEditBoxLine } from "react-icons/ri";
 import useAuth from "../../hooks/useAuth";
 import UpdateProfile from "../../components/form/UpdateProfile";
+import { useState } from "react";
 
 
 const Profile = () => {
+    const [isToggle, setIsToggle] = useState();
     const {user} = useAuth();
-    console.log(user);
     return (
         <div className="md:max-w-[400px] mx-auto mt-16">
             <div className="flex gap-8 ">
@@ -15,10 +16,12 @@ const Profile = () => {
                 <div className="space-y-2">
                     <p className="text-gray-800 flex gap-5"><span className="w-[50px]">Name</span>: {user?.displayName}</p>
                     <p className="text-gray-800 flex gap-5"><span className="w-[50px]">email</span>: {user?.email}</p>
-                    <p className="text-gray-800 flex gap-5 items-center"><span className="w-[50px]">Update</span>: <RiEditBoxLine className="cursor-pointer" /></p>
+                    <p className="text-gray-800 flex gap-5 items-center"><span className="w-[50px]">Update</span>: <RiEditBoxLine onClick={() => setIsToggle(!isToggle)} className="cursor-pointer" /></p>
                 </div>
             </div>
-            {/* <UpdateProfile /> */}
+            <div className={isToggle ? 'block':'hidden'} >
+                <UpdateProfile />
+            </div>
 
         </div>
     );

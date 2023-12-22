@@ -45,38 +45,29 @@ const AuthProvider = ({children}) => {
     }
 
     // login user
-    const userProfileUpdate = (name, image) => {
-        setLoading(true);
+    const userProfileUpdate = (object) => {
+        const { name,profile} = object;
         return updateProfile(auth.currentUser, {
             displayName : name,
-            photoURL: image,
+            photoURL: profile,
         });
     }
 
     useEffect(() => {
         const onSubscribe = onAuthStateChanged(auth , async currentUser => {
             
-            const email = currentUser?.email;
             console.log(currentUser);
             setUser(currentUser);
             if(currentUser?.email){
-                // console.log("inside auth", email);
                 // Create JWT 
                 await axios.post('/jwt', {email: currentUser?.email});
-                // // Find a new user / admin
-                // const getUser = await axios.get(`/user/${currentUser?.email}?request=user`);
-                // if(getUser.data?.success){
-                //     setUser(getUser.data?.user);
-                //     setLoading(false)
-                // }
-             
+                
             }else{
                 await axios.post('/logout-user', {email:currentUser?.email});
                 setUser({});
                 console.log('Logout');
             }
             setLoading(false)
-            console.log('slow falas');
           
         })
         return () => {onSubscribe()}

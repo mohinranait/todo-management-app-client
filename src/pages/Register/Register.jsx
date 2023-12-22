@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import SocialLogin from "../../components/SocialLogin";
+import { uploadImage } from "../../services/uploadImage";
 
 
 const Register = () => {
@@ -16,9 +17,9 @@ const Register = () => {
 
         const name = data.name;
         const email = data.email;
-        // const photo = data.photo;
+        const imageFile = data.photo[0];
         const password = data.password;
-        // console.log(name, email, password);
+
         // Name validation
         if( name.length == 0){
             toast.error("Name filed is require");
@@ -32,27 +33,17 @@ const Register = () => {
             return ;
         }
 
-        // password validation
-        // const spacialCharecter = /[\W_]/g;
-        // const capitalLetter = /[A-Z]/;
-        // if(password.length < 6) {
-        //     toast.error("Password is less than 6 characters");
-        //     return ;
-        // } else if( !spacialCharecter.test(password) ){
-        //     toast.error("Don't have a special character");
-        //     return ;
-        // } else if(!capitalLetter.test(password)) {
-        //     toast.error("don't have a capital letter");
-        //     return ;
-        // }
 
         try {
+
             const user = await createUser(email, password);
+            const profile = await uploadImage(imageFile)
+
             if( user.user ){
-                await userProfileUpdate( name);
-                const newUser = {name ,email}
+                await userProfileUpdate({ name,profile});
+                const newUser = {name ,email,avater:profile}
                 try {
-                    await axiosPublic.post(`/api/users`, {newUser})                    
+                    await axiosPublic.post(`/users`, {newUser})                    
                 } catch (error) {
                     toast.error(error.message);
                 }
@@ -115,10 +106,10 @@ const Register = () => {
                                             <input type="text" name='name' {...register("name", {required:"Name is required"})} placeholder='Full Name' className='px-3 w-full py-3 border border-gray-200 text-gray-600 rounded-md outline-none' />
                                             {errors.name && <p className='text-sm text-red-600 font-normal'>{errors.name.message}</p>}
                                         </div>
-                                        {/* <div className='mb-4'>
+                                        <div className='mb-4'>
                                             <label htmlFor="" className='mb-1 block font-medium text-gray-300'>Image URL</label>
-                                            <input type="text" name='photo' placeholder='Image URL' className='px-3 w-full py-3 border border-gray-200 text-gray-600 rounded-md outline-none' />
-                                        </div> */}
+                                            <input type="file" name='photo' {...register("photo")} placeholder='Image URL' className='px-3 w-full py-3 border border-gray-200 text-gray-600 rounded-md outline-none' />
+                                        </div>
                                         <div className='mb-4'>
                                             <label htmlFor="" className='mb-1 block font-medium text-gray-300'>Email</label>
                                             <input type="email" name='email' {...register("email", emailValidation )} placeholder='Email' className='px-3 w-full py-3 border border-gray-200 text-gray-600 rounded-md outline-none' />

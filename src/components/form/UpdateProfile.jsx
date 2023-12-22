@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { uploadImage } from "../../services/uploadImage";
 
 
 const UpdateProfile = () => {
@@ -10,10 +11,15 @@ const UpdateProfile = () => {
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
         const name = e.target.name.value;
+        const imageFile = e.target.photo.files[0];
         if(name.lenght == 0) return toast.error("Name can't be emapty");
         try {
-            const res = await userProfileUpdate(name) 
-            navigate('/')
+            let profile = user?.photoURL
+            if(imageFile){
+                profile = await uploadImage(imageFile)
+            }
+            await userProfileUpdate({name,profile}) 
+            navigate('/dashboard/manage-task')
         } catch (error) {
             toast.error(error.message)
         }
@@ -28,7 +34,7 @@ const UpdateProfile = () => {
                 </div>
                 <div className="mb-7">
                     <label htmlFor="" className="text-sm text-gray-500 mb-2 inline-block">Profile picture</label>
-                    <input type="file" name="profile" className="px-3 py-2 rounded border border-gray-200 w-full" placeholder="Name" />
+                    <input type="file" name="photo" className="px-3 py-2 rounded border border-gray-200 w-full" placeholder="Name" />
                 </div>
                 <div>
                     <button type="submit" className="w-full bg-primary py-2 text-white rounded">Update profile </button>

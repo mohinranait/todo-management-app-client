@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 
 const Home = () => {
+    const {user} = useAuth();
     return (
         <>
             <section>
@@ -12,7 +14,7 @@ const Home = () => {
                             <p className="text-3xl font-medium">Plan, Track and Organise your work.</p>
                             <p className="text-base font-normal text-gray-600">An Intranet platform to Manage projects, organise work and focus on what’s important.</p>
                             <div>
-                                <Link to="/login" className="px-5 py-2 bg-primary rounded text-white inline-block ">Let’s Explore</Link>
+                                <Link to={ user?.email ? "/dashboard/manage-task" : "/login"} className="px-5 py-2 bg-primary rounded text-white inline-block ">Let’s Explore</Link>
                             </div>
                         </div>
                         <div>
